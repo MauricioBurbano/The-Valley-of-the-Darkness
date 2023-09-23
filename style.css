@@ -1,3 +1,10 @@
 img {
     width: 400px;
 }
+
+#title {
+    font-family: 'Alfa Slab One', cursive;
+    color: #F28907;
+    color: #F20707;
+    font-size: 2rem;
+}

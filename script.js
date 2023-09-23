@@ -13,7 +13,7 @@ async function getCompletion() {
         },
         body: JSON.stringify({
         model: "text-davinci-003",
-        prompt: "A random easy to guess noun. No punctuation. All letters capitalized.",
+        prompt: "Provide a randomly chosen, relatively easy-to-guess noun, with all letters capitalized and no punctuation.",
         max_tokens: 100,
         }),
     });
@@ -30,7 +30,7 @@ async function getCompletion() {
     word.innerHTML = guess + " " + randomWord;
 }
 
-getCompletion();
+// getCompletion();
 
 const keyboard = document.querySelector("#keyboard");
 
@@ -45,9 +45,7 @@ for (let i = "A".charCodeAt(0); i <= "Z".charCodeAt(0); i++) {
     keyboard.appendChild(key);
 }
 
-document.addEventListener("keydown", function(event) {
-    check(event.key.toUpperCase());
-});
+document.addEventListener("keydown", event => check(event.key.toUpperCase()));
 
 function check(letter) {
     for (let i = 0; i < randomWord.length; i++) {
