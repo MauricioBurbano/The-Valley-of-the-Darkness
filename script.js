@@ -13,7 +13,7 @@ async function getCompletion() {
         },
         body: JSON.stringify({
         model: "text-davinci-003",
-        prompt: "Provide a randomly chosen, relatively easy-to-guess noun, with all letters capitalized and no punctuation.",
+        prompt: "Provide a randomly chosen, easy-to-guess noun, with all letters capitalized and no punctuation.",
         max_tokens: 100,
         }),
     });
@@ -27,10 +27,10 @@ async function getCompletion() {
     wordArr = new Array(randomWord.length).fill("__");
     guess = wordArr.join(" ");
 
-    word.innerHTML = guess + " " + randomWord;
+    word.innerHTML = guess;
 }
 
-// getCompletion();
+getCompletion();
 
 const keyboard = document.querySelector("#keyboard");
 
@@ -47,13 +47,28 @@ for (let i = "A".charCodeAt(0); i <= "Z".charCodeAt(0); i++) {
 
 document.addEventListener("keydown", event => check(event.key.toUpperCase()));
 
+let passageIndex = 0;
+const passageContainer = document.querySelector(".passage");
+
 function check(letter) {
-    for (let i = 0; i < randomWord.length; i++) {
-        if (letter === randomWord[i]) {
-            wordArr[i] = letter;
+    if (passageIndex < 6) {
+        let wrong = true;
+
+        for (let i = 0; i < randomWord.length; i++) {
+            if (letter === randomWord[i]) {
+                wordArr[i] = letter;
+                wrong = false;
+            }
         }
 
         guess = wordArr.join(" ");
         word.innerHTML = guess;
-    }
+
+        if (wrong) {
+            const verse = document.createElement("p");
+            verse.innerHTML = passage[passageIndex];
+            passageContainer.appendChild(verse);
+            passageIndex++;
+        }
+    } else word.innerHTML = "GAME OVER! THE WORD WAS " + randomWord + ".";
 }
